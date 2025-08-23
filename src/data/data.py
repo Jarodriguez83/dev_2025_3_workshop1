@@ -14,7 +14,14 @@ class Data:
         Returns:
             list: Lista con los elementos en orden inverso
         """
-        pass
+        # Editor: Jhon Rodriguez (23/08/2025)
+        # Creamos una nueva lista vacía para ir guardando los elementos al revés
+        invertida = []
+        # Recorremos la lista original desde el último elemento hasta el primero
+        for i in range(len(lista) - 1, -1, -1):
+            invertida.append(lista[i])
+        # Retornamos la lista invertida
+        return invertida
     
     def buscar_elemento(self, lista, elemento):
         """
@@ -28,7 +35,14 @@ class Data:
         Returns:
             int: Índice del elemento o -1 si no se encuentra
         """
-        pass
+        # Editor: Jhon Rodriguez (23/08/2025)
+        # Recorremos la lista elemento por elemento
+        for i in range(len(lista)):
+            # Comparamos el elemento actual con el que buscamos
+            if lista[i] == elemento:
+                return i  # Retornamos el índice si lo encontramos
+        # Si no se encontró, devolvemos -1
+        return -1
     
     def eliminar_duplicados(self, lista):
         """
