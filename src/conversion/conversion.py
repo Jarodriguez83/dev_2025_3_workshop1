@@ -15,8 +15,8 @@ class Conversion:
             celsius_a_fahrenheit(0) -> 32.0
             celsius_a_fahrenheit(100) -> 212.0
         """
-        return (celsius * 9/5) + 32
-        pass
+        fahrenheit = (celsius * 9/5) + 32    
+        return fahrenheit
     
     def fahrenheit_a_celsius(self, fahrenheit):
         """
@@ -34,7 +34,8 @@ class Conversion:
             fahrenheit_a_celsius(32) -> 0.0
             fahrenheit_a_celsius(212) -> 100.0
         """
-        pass
+        celsius = (fahrenheit - 32) * 5/9
+        return celsius
     
     def metros_a_pies(self, metros):
         """
@@ -51,7 +52,8 @@ class Conversion:
         Ejemplo:
             metros_a_pies(1) -> 3.28084
         """
-        pass
+        pies = metros * 3.28084
+        return pies
     
     def pies_a_metros(self, pies):
         """
@@ -68,7 +70,8 @@ class Conversion:
         Ejemplo:
             pies_a_metros(3.28084) -> 1.0
         """
-        pass
+        metros = pies * 0.3048
+        return metros
     
     def decimal_a_binario(self, decimal):
         """
