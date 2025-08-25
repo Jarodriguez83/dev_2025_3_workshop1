@@ -14,7 +14,17 @@ class Magic:
         Returns:
             int: El n-ésimo número de Fibonacci
         """
-        pass
+        if n < 0:
+                raise ValueError("n debe ser un número entero no negativo")
+        elif n == 0:
+                return 0
+        elif n == 1:
+                return 1
+
+        a, b = 0, 1
+        for _ in range(2, n + 1):
+                a, b = b, a + b
+        return b
     
     def secuencia_fibonacci(self, n):
         """
@@ -26,7 +36,17 @@ class Magic:
         Returns:
             list: Lista con los primeros n números de Fibonacci
         """
-        pass
+        if n <= 0:
+            return []
+        elif n == 1:
+            return [0]
+        elif n == 2:
+            return [0, 1]
+
+        secuencia = [0, 1]
+        for _ in range(2, n):
+            secuencia.append(secuencia[-1] + secuencia[-2])
+        return secuencia
     
     def es_primo(self, n):
         """
@@ -38,7 +58,18 @@ class Magic:
         Returns:
             bool: True si n es primo, False en caso contrario
         """
-        pass
+        if n <= 1:
+            return False
+        if n == 2:
+            return True
+        if n % 2 == 0:
+            return False
+        
+        # Revisar divisores desde 3 hasta sqrt(n), saltando pares
+        for i in range(3, int(n**0.5) + 1, 2):
+            if n % i == 0:
+                return False
+        return True
     
     def generar_primos(self, n):
         """
@@ -50,7 +81,11 @@ class Magic:
         Returns:
             list: Lista de números primos hasta n
         """
-        pass
+        primos = []
+        for i in range(2, n + 1):
+            if self.es_primo(i):  # usamos la función definida antes
+                primos.append(i)
+        return primos
     
     def es_numero_perfecto(self, n):
         """
@@ -62,7 +97,15 @@ class Magic:
         Returns:
             bool: True si n es un número perfecto, False en caso contrario
         """
-        pass
+        if n < 2:
+            return False  # no hay números perfectos menores que 2
+
+        suma_divisores = 0
+        for i in range(1, n):
+            if n % i == 0:  # si i es divisor
+                suma_divisores += i
+
+        return suma_divisores == n
     
     def triangulo_pascal(self, filas):
         """
@@ -74,7 +117,20 @@ class Magic:
         Returns:
             list: Lista de listas que representa el triángulo de Pascal
         """
-        pass
+        if filas <= 0:
+            return []
+
+        triangulo = [[1]]  # primera fila
+
+        for i in range(1, filas):
+            fila_anterior = triangulo[-1]
+            nueva_fila = [1]  # empieza con 1
+            for j in range(1, len(fila_anterior)):
+                nueva_fila.append(fila_anterior[j-1] + fila_anterior[j])
+            nueva_fila.append(1)  # termina con 1
+            triangulo.append(nueva_fila)
+
+        return triangulo
     
     def factorial(self, n):
         """
@@ -86,8 +142,16 @@ class Magic:
         Returns:
             int: El factorial de n
         """
-        pass
-    
+        if n < 0:
+            raise ValueError("El factorial no está definido para números negativos")
+        if n == 0 or n == 1:
+            return 1
+
+        resultado = 1
+        for i in range(2, n + 1):
+            resultado *= i
+        return resultado
+        
     def mcd(self, a, b):
         """
         Calcula el máximo común divisor de dos números.
