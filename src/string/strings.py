@@ -60,7 +60,12 @@ class Strings:
         Returns:
             int: Número de consonantes en la cadena
         """
-        pass
+        vocales = "aeiouAEIOU"
+        contador = 0
+        for letra in texto:
+            if letra.isalpha() and letra not in vocales:  # es letra y no es vocal
+                contador += 1
+        return contador
     
     def es_anagrama(self, texto1, texto2):
         """
@@ -73,7 +78,12 @@ class Strings:
         Returns:
             bool: True si son anagramas, False en caso contrario
         """
-        pass
+         # Convertimos a minúsculas y quitamos espacios
+        t1 = texto1.replace(" ", "").lower()
+        t2 = texto2.replace(" ", "").lower()
+        
+        # Ordenamos los caracteres y comparamos
+        return sorted(t1) == sorted(t2)
     
     def contar_palabras(self, texto):
         """
@@ -85,7 +95,11 @@ class Strings:
         Returns:
             int: Número de palabras en la cadena
         """
-        pass
+         # Usamos split() para dividir el texto por espacios
+        palabras = texto.split()
+        
+        # Retornamos cuántas palabras hay
+        return len(palabras)
     
     def palabras_mayus(self, texto):
         """
@@ -97,8 +111,15 @@ class Strings:
         Returns:
             str: Cadena con la primera letra de cada palabra en mayúscula
         """
-        pass
-    
+        # Dividimos el texto en palabras
+        palabras = texto.split()
+        
+        # Ponemos en mayúscula la primera letra de cada palabra
+        palabras_mayus = [p[0].upper() + p[1:] if p else '' for p in palabras]
+        
+        # Reconstruimos la cadena
+        return " ".join(palabras_mayus)
+        
     def eliminar_espacios_duplicados(self, texto):
         """
         Elimina espacios duplicados en una cadena.
@@ -109,8 +130,21 @@ class Strings:
         Returns:
             str: Cadena sin espacios duplicados
         """
-        pass
-    
+        resultado = []
+        anterior_espacio = False
+
+        for c in texto:
+            if c == " ":
+                if not anterior_espacio:
+                    resultado.append(c)   # agregamos un solo espacio
+                    anterior_espacio = True
+                # si ya había un espacio, no agregamos el duplicado
+            else:
+                resultado.append(c)
+                anterior_espacio = False
+
+        return "".join(resultado)
+        
     def es_numero_entero(self, texto):
         """
         Verifica si una cadena representa un número entero sin usar isdigit().
@@ -121,7 +155,24 @@ class Strings:
         Returns:
             bool: True si la cadena representa un número entero, False en caso contrario
         """
-        pass
+            # Editor: Jhon Rodriguez (26/08/2025)
+        if not texto:  # si la cadena está vacía
+            return False
+
+        # si empieza con signo + o -, lo quitamos para verificar lo que queda
+        if texto[0] in ['-', '+']:
+            texto = texto[1:]
+
+        # si después del signo está vacía (ej: "+" o "-"), no es un número
+        if not texto:
+            return False
+
+        # recorremos cada carácter y validamos que sean dígitos (0-9)
+        for c in texto:
+            if c < '0' or c > '9':
+                return False
+
+        return True
     
     def cifrar_cesar(self, texto, desplazamiento):
         """
