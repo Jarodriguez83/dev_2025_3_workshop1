@@ -163,7 +163,11 @@ class Magic:
         Returns:
             int: El máximo común divisor de a y b
         """
-        pass
+        while b != 0:
+            residuo = a % b
+            a = b
+            b = residuo
+        return a
     
     def mcm(self, a, b):
         """
@@ -176,8 +180,8 @@ class Magic:
         Returns:
             int: El mínimo común múltiplo de a y b
         """
-        pass
-    
+        return (a * b) // mcd(a, b)
+
     def suma_digitos(self, n):
         """
         Calcula la suma de los dígitos de un número.
@@ -188,7 +192,12 @@ class Magic:
         Returns:
             int: La suma de los dígitos de n
         """
-        pass
+        suma = 0
+        while n > 0:
+            digito = n % 10   # saco el último dígito
+            suma += digito    # lo sumo
+            n = n // 10       # quito el último dígito
+        return suma
     
     def es_numero_armstrong(self, n):
         """
@@ -200,7 +209,17 @@ class Magic:
         Returns:
             bool: True si n es un número de Armstrong, False en caso contrario
         """
-        pass
+            # Contar la cantidad de dígitos
+        digitos = len(str(n))
+        suma = 0
+        temp = n
+
+        while temp > 0:
+            digito = temp % 10       # tomo el último dígito
+            suma += digito ** digitos
+            temp = temp // 10        # quito el último dígito
+        
+        return suma == n
     
     def es_cuadrado_magico(self, matriz):
         """
@@ -212,4 +231,20 @@ class Magic:
         Returns:
             bool: True si es un cuadrado mágico, False en caso contrario
         """
-        pass
+        n = len(matriz)  # tamaño de la matriz (n x n)
+
+        # suma de la primera fila como referencia
+        suma_objetivo = sum(matriz[0])
+
+        # verificar filas
+        for fila in matriz:
+            if sum(fila) != suma_objetivo:
+                return False
+
+        # verificar columnas
+        for col in range(n):
+            suma_col = 0
+            for fila in range(n):
+                suma_col += matriz[fila][col]
+            if suma_col != suma_objetivo:
+                return False
