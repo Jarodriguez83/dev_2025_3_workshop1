@@ -180,7 +180,7 @@ class Magic:
         Returns:
             int: El mínimo común múltiplo de a y b
         """
-        return (a * b) // mcd(a, b)
+        return (a * b) // mcd(self, a, b)
 
     def suma_digitos(self, n):
         """
