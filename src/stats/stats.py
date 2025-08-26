@@ -123,10 +123,12 @@ class Stats:
         Ejemplo:
             varianza([1, 2, 3, 4, 5]) -> 2.0
         """
-        n = len(numeros)
-        media = sum(numeros) / n
+        if not numeros:
+            return 0.0  # lista vacía → varianza cero
+        
+        media = sum(numeros) / len(numeros)
         suma_cuadrados = sum((x - media) ** 2 for x in numeros)
-        return suma_cuadrados / n
+        return suma_cuadrados / len(numeros)
     
     def rango(self, numeros):
         """

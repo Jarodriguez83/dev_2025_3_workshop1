@@ -111,14 +111,24 @@ class Strings:
         Returns:
             str: Cadena con la primera letra de cada palabra en mayúscula
         """
-        # Dividimos el texto en palabras
-        palabras = texto.split()
-        
-        # Ponemos en mayúscula la primera letra de cada palabra
-        palabras_mayus = [p[0].upper() + p[1:] if p else '' for p in palabras]
-        
-        # Reconstruimos la cadena
-        return " ".join(palabras_mayus)
+        if not isinstance(texto, str):
+            return ""
+
+        resultado = ""
+        nueva_palabra = True  # bandera para detectar inicio de palabra
+
+        for char in texto:
+            if char == " ":
+                resultado += char
+                nueva_palabra = True  # el siguiente char puede ser inicio de palabra
+            else:
+                if nueva_palabra:
+                    resultado += char.upper()
+                    nueva_palabra = False
+                else:
+                    resultado += char.lower()
+
+        return resultado
         
     def eliminar_espacios_duplicados(self, texto):
         """
@@ -185,7 +195,18 @@ class Strings:
         Returns:
             str: Cadena cifrada
         """
-        pass
+        # Editor: Jhon Rodriguez (26/08/2025)
+        resultado = ""
+
+        for c in texto:
+            if 'a' <= c <= 'z':  # si es minúscula
+                resultado += chr((ord(c) - ord('a') + desplazamiento) % 26 + ord('a'))
+            elif 'A' <= c <= 'Z':  # si es mayúscula
+                resultado += chr((ord(c) - ord('A') + desplazamiento) % 26 + ord('A'))
+            else:
+                resultado += c  # dejar tal cual si no es letra
+
+        return resultado
     
     def descifrar_cesar(self, texto, desplazamiento):
         """
@@ -198,7 +219,16 @@ class Strings:
         Returns:
             str: Cadena descifrada
         """
-        pass
+        resultado = ""
+        for c in texto:
+            if 'a' <= c <= 'z':  # minúscula
+                resultado += chr((ord(c) - ord('a') - desplazamiento) % 26 + ord('a'))
+            elif 'A' <= c <= 'Z':  # mayúscula
+                resultado += chr((ord(c) - ord('A') - desplazamiento) % 26 + ord('A'))
+            else:
+                resultado += c  # dejar tal cual si no es letra
+
+        return resultado
     
     def encontrar_subcadena(self, texto, subcadena):
         """
@@ -211,4 +241,26 @@ class Strings:
         Returns:
             list: Lista con las posiciones iniciales de cada ocurrencia
         """
-        pass
+         # Editor: Jhon Rodriguez (26/08/2025)
+
+        # Validaciones básicas
+        if not isinstance(texto, str) or not isinstance(subcadena, str):
+            return []
+        if subcadena == "":
+            return []  # decisión: cadena vacía -> no retornamos posiciones
+
+        posiciones = []
+        n = len(texto)
+        m = len(subcadena)
+
+        # Recorremos todas las posiciones posibles y comparamos carácter a carácter
+        for i in range(0, n - m + 1):
+            match = True
+            for j in range(m):
+                if texto[i + j] != subcadena[j]:
+                    match = False
+                    break
+            if match:
+                posiciones.append(i)
+
+        return posiciones   
