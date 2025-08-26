@@ -180,7 +180,15 @@ class Magic:
         Returns:
             int: El mínimo común múltiplo de a y b
         """
-        return (a * b) // mcd(self, a, b)
+        def mcd(x, y):
+            while y != 0:
+                x, y = y, x % y
+            return x
+        
+        if a == 0 or b == 0:
+            return 0  # El MCM con 0 se define como 0
+        
+        return abs(a * b) // mcd(a, b)
 
     def suma_digitos(self, n):
         """
@@ -231,20 +239,37 @@ class Magic:
         Returns:
             bool: True si es un cuadrado mágico, False en caso contrario
         """
-        n = len(matriz)  # tamaño de la matriz (n x n)
-
-        # suma de la primera fila como referencia
+        n = len(matriz)
+        if n == 0:
+            return False
+        
+        # Verificar que sea cuadrada
+        for fila in matriz:
+            if len(fila) != n:
+                return False
+        
+        # Suma de referencia (primera fila)
         suma_objetivo = sum(matriz[0])
-
-        # verificar filas
+        
+        # Verificar filas
         for fila in matriz:
             if sum(fila) != suma_objetivo:
                 return False
-
-        # verificar columnas
+        
+        # Verificar columnas
         for col in range(n):
-            suma_col = 0
-            for fila in range(n):
-                suma_col += matriz[fila][col]
+            suma_col = sum(matriz[fila][col] for fila in range(n))
             if suma_col != suma_objetivo:
                 return False
+        
+        # Verificar diagonal principal
+        suma_diag1 = sum(matriz[i][i] for i in range(n))
+        if suma_diag1 != suma_objetivo:
+            return False
+        
+        # Verificar diagonal secundaria
+        suma_diag2 = sum(matriz[i][n - 1 - i] for i in range(n))
+        if suma_diag2 != suma_objetivo:
+            return False
+        
+        return True
