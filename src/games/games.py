@@ -59,27 +59,40 @@ class Games:
             ["O", "O", " "], 
             [" ", " ", " "]] -> "X"
         """
-       # --- Verificar filas y columnas ---
+       
+        # --- 1. Verificación de Ganador ---
+        
+        # 1.1. Verificación de Filas
         for i in range(3):
-            # Verificar filas
             if tablero[i][0] == tablero[i][1] == tablero[i][2] and tablero[i][0] != " ":
                 return tablero[i][0]
-            # Verificar columnas
-            if tablero[0][i] == tablero[1][i] == tablero[2][i] and tablero[0][i] != " ":
-                return tablero[0][i]
 
-        # --- Verificar diagonales ---
+        # 1.2. Verificación de Columnas
+        for j in range(3):
+            if tablero[0][j] == tablero[1][j] == tablero[2][j] and tablero[0][j] != " ":
+                return tablero[0][j]
+
+        # 1.3. Verificación de Diagonales
         if tablero[0][0] == tablero[1][1] == tablero[2][2] and tablero[0][0] != " ":
             return tablero[0][0]
+        
         if tablero[0][2] == tablero[1][1] == tablero[2][0] and tablero[0][2] != " ":
             return tablero[0][2]
 
-        # --- Verificar si el juego continúa o es un empate ---
+        # --- 2. Verificación de Empate y Continuación ---
+        
+        hay_espacio_vacio = False
         for fila in tablero:
             if " " in fila:
-                return "continua"
+                hay_espacio_vacio = True
+                break
+        
+        if not hay_espacio_vacio:
+            return "empate"
+        
+        # Si no hay ganador ni empate, el juego continúa
+        return "continua"
 
-        return "empate"
     
     def generar_combinacion_mastermind(self, longitud, colores_disponibles):
         """
